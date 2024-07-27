@@ -1,45 +1,57 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+class WeatherModel {
+  final Map<String, dynamic> currentWeather;
+  final Map<String, dynamic> hourly;
 
-class WeatherModel{
-  final currentWeather;
-  final hourly;
   WeatherModel({required this.currentWeather, required this.hourly});
 
-  factory WeatherModel.fromJson(Map<String, dynamic> data){
-    final currentWeather = data["current_weather"] as Map<String, dynamic>;
-    final hourly = data["hourly"] as Map<String, dynamic>;
+  factory WeatherModel.fromJson(Map<String, dynamic> data) {
+    final currentWeather = data['current_weather'] as Map<String, dynamic>;
+    final hourly = data['hourly'] as Map<String, dynamic>;
     return WeatherModel(currentWeather: currentWeather, hourly: hourly);
   }
 }
 
-class CurrentWeather{
+class CurrentWeather {
   final double temperature;
   final double windspeed;
-  final double weathercode;
+  final int weathercode;
   final int winddirection;
   final int isDay;
-  CurrentWeather({required this.temperature, required this.windspeed, required this.weathercode, required this.winddirection, required this.isDay});
-  
-  factory CurrentWeather.fromJson(Map<String, dynamic> data){
-    final temperature = data["temperature"] as double;
-    final windspeed = data["windspeed"] as double;
-    final weathercode = data["weathercode"] as double;
-    final winddirection = data ["winddirection"] as int;
-    final isDay = data["isDay"] as int;
-    
-    return CurrentWeather(temperature: temperature, windspeed: windspeed, weathercode: weathercode, winddirection: winddirection, isDay: isDay);
+
+  CurrentWeather({
+    required this.temperature,
+    required this.windspeed,
+    required this.weathercode,
+    required this.winddirection,
+    required this.isDay,
+  });
+
+  factory CurrentWeather.fromJson(Map<String, dynamic> data) {
+    final temperature = data['temperature'] as double;
+    final windspeed = data['windspeed'] as double;
+    final weathercode = data['weathercode'] as int;
+    final winddirection = data['winddirection'] as int;
+    final isDay = data['isDay'] as int;
+
+    return CurrentWeather(
+      temperature: temperature,
+      windspeed: windspeed,
+      weathercode: weathercode,
+      winddirection: winddirection,
+      isDay: isDay,
+    );
   }
 }
 
-class HourlyCast{
+class HourlyCast {
   final List<String> time;
   final List<double> temperature;
+
   HourlyCast({required this.time, required this.temperature});
 
-  factory HourlyCast.fromJson(Map<String, dynamic> data){
-    final List<String> time = data["time"] as List<String>;
-    final List<double> temperature = data["temperature"] as List<double>;
+  factory HourlyCast.fromJson(Map<String, dynamic> data) {
+    final List<String> time = List<String>.from(data['time']);
+    final List<double> temperature = List<double>.from(data['temperature_2m']);
     return HourlyCast(time: time, temperature: temperature);
   }
 }
